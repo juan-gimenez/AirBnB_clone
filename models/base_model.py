@@ -21,28 +21,26 @@ class BaseModel(ABC):
         if len(kwargs) != 0:
             for attr in kwargs:
                 if attr != "__class__":
-                    setattr(self, attr, kwargs[attr])
+                    if attr == "created_at" or attr == "updated_at":
+                        setattr(self, attr, strptime(kwargs[attr], '%Y-%m-%dT%H:%M:%S.%f'))
+                    else:
+                        setattr(self, attr, kwargs[attr])
         else:
-
-#		print("sabes q no habia kwargs? voy al args")
-#if len(args) > 3:
-#			raise TypeError("You only can set 2 attrs")
             self.id = str(uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
             storage.new(self)
-#		attrs = {0: 'created_at', 1: 'updated_at'}
-#		print("voy a setear los args")
-#		for i in range(len(args)):
-#			self.attrs[i] = args[i]
-#		print("ya setee los args")
 
+#   @property
+#    @abstractmethod
     def __str__(self):
         """
         methods which returns an string instance representation
         """
-        return f'[{type(self).__name__}] ({self.id}) {self.__dict__}'
+        print("entre al str del base model")
+        return f'[{self.__class__.__name__}] ({self.id}) {self.__dict__}'
 
+ #   @abstractmethod
     def save(self):
         """
         updates the public instance attribute updated_at with the current datetime
@@ -50,6 +48,7 @@ class BaseModel(ABC):
         self.updated_at = datetime.now()
         storage.save()
 
+#    @abstractmethod
     def to_dict(self):
         """
         returns a dictionary with all keys/values of the instance
