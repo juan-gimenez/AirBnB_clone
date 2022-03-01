@@ -3,7 +3,7 @@
 Module place.py - contains the place class
 """
 
-BaseModel = __import__("base_models.py").BaseModel
+from models.base_model  import BaseModel
 
 Class Place(BaseModel):
     """

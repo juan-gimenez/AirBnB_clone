@@ -3,7 +3,7 @@
 Module amenity.py - contains the amenity class
 """
 
-BaseModel = __import__("base_models.py").BaseModel
+from models.base_model  import BaseModel
 
 Class Amenity(BaseModel):
     """

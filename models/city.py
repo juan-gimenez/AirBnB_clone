@@ -3,7 +3,7 @@
 Module city.py - contains the city class
 """
 
-BaseModel = __import__("base_models.py").BaseModel
+from models.base_model  import BaseModel
 
 Class City(BaseModel):
     """

@@ -3,7 +3,7 @@
 Module state.py - contains the state class
 """
 
-BaseModel = __import__("base_models.py").BaseModel
+from models.base_model  import BaseModel
 
 Class State(BaseModel):
     """
