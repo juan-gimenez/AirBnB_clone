@@ -34,7 +34,6 @@ class FileStorage():
         new(self, obj): sets in __objects the obj with key <obj class name>.id
         """
         self.__objects[f'{type(obj).__name__}.{obj.id}'] = obj
-        print(f'este es el self.__objects: \n{self.__objects}')
 
     def save(self):
         """
@@ -58,7 +57,6 @@ class FileStorage():
                 auxDict = js.load(f)
                 for key , value in auxDict.items():
                     objAndIdList = str(key).split('.')
-                    print(f'nombre del obj q vamos a usar en el eval: {objAndIdList[0]}')
                     self.__objects[key] = eval(objAndIdList[0])(**value)
         except Exception:
             return

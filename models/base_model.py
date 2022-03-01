@@ -34,7 +34,6 @@ class BaseModel():
         """
         methods which returns an string instance representation
         """
-        print("entre al str del base model")
         return f'[{self.__class__.__name__}] ({self.id}) {self.__dict__}'
 
     def save(self):
