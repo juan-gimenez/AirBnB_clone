@@ -49,6 +49,7 @@ class BaseModel():
         returns a dictionary with all keys/values of the instance
         """
         ret = self.__dict__.copy()
-        ret['created_at'] = ret['created_at'].isoformat()
-        ret['updated_at'] = ret['updated_at'].isoformat()
+        ret['__class__'] = type(self).__name__
+        ret['created_at'] = ret['created_at']datetime.strftime()
+        ret['updated_at'] = ret['updated_at']datetime.strftime()
         return ret
