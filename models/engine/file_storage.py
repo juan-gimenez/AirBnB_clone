@@ -5,7 +5,7 @@ serializes instances to a JSON file and deserializes JSON file to instance
 """
 import json as js
 from uuid import uuid4
-
+from models.base_model import BaseModel
 
 class FileStorage():
     """
@@ -27,25 +27,35 @@ class FileStorage():
         """
         new(self, obj): sets in __objects the obj with key <obj class name>.id
         """
-        self.__objects[f'{type(obj).__name__}.{obj.id}'] = obj.to_dict()
+        self.__objects[f'{type(obj).__name__}.{obj.id}'] = obj
+        print(f'este es el self.__objects: \n{self.__objects}')
 
     def save(self):
         """
         serializes __objects to the JSON file appending
         """
+        auxDict = {}
         try:
             with open (self.__file_path, 'w+') as f:
-                f.write(js.dump(self.__objects, f))
-        except Exception:
+                for key, value in self.__objects.items():
+                    auxDict[key] = value.to_dict()
+                f.write(js.dumps(auxDict))
+        except Exception as a:
+            print("except del open la concha de tu madre")
+            print(a)
+            raise a
             return
 
     def reload(self):
         """
-       deserializes the JSON file to __objects
+        deserializes the JSON file to __objects
         """
         try:
             with open(self.__file_path) as f:
-                self.__objects = js.load(f)
+                auxDict = js.load(f)
+                for key in auxDict:
+                    self.__objects[key] = Basemodel(**auxDict[key])
+                    
                 return self.__objects
         except Exception:
             return
