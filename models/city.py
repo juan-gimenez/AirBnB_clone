@@ -5,7 +5,7 @@ Module city.py - contains the city class
 
 from models.base_model  import BaseModel
 
-Class City(BaseModel):
+class City(BaseModel):
     """
     city class
     """

@@ -6,6 +6,12 @@ serializes instances to a JSON file and deserializes JSON file to instance
 import json as js
 from uuid import uuid4
 from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 class FileStorage():
     """
@@ -39,11 +45,8 @@ class FileStorage():
             with open (self.__file_path, 'w+') as f:
                 for key, value in self.__objects.items():
                     auxDict[key] = value.to_dict()
-                f.write(js.dumps(auxDict))
-        except Exception as a:
-            print("except del open la concha de tu madre")
-            print(a)
-            raise a
+                js.dump(auxDict, f)
+        except Exception:
             return
 
     def reload(self):
@@ -53,9 +56,9 @@ class FileStorage():
         try:
             with open(self.__file_path) as f:
                 auxDict = js.load(f)
-                for key in auxDict:
-                    self.__objects[key] = Basemodel(**auxDict[key])
-                    
-                return self.__objects
+                for key , value in auxDict.items():
+                    objAndIdList = str(key).split('.')
+                    print(f'nombre del obj q vamos a usar en el eval: {objAndIdList[0]}')
+                    self.__objects[key] = eval(objAndIdList[0])(**value)
         except Exception:
             return

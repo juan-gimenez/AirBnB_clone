@@ -5,7 +5,7 @@ Module place.py - contains the place class
 
 from models.base_model  import BaseModel
 
-Class Place(BaseModel):
+class Place(BaseModel):
     """
     place class
     """

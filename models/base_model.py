@@ -50,6 +50,6 @@ class BaseModel():
         """
         ret = self.__dict__.copy()
         ret['__class__'] = type(self).__name__
-        ret['created_at'] = ret['created_at']datetime.strftime()
-        ret['updated_at'] = ret['updated_at']datetime.strftime()
+        ret['created_at'] =  ret['created_at'].isoformat()
+        ret['updated_at'] = ret['updated_at'].isoformat()
         return ret

@@ -5,7 +5,7 @@ review class
 
 from models.base_model  import BaseModel
 
-Class Review(BaseModel):
+class Review(BaseModel):
     """
     review class
     """

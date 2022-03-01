@@ -5,7 +5,7 @@ Module amenity.py - contains the amenity class
 
 from models.base_model  import BaseModel
 
-Class Amenity(BaseModel):
+class Amenity(BaseModel):
     """
     amenity class
     """
