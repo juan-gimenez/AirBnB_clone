@@ -3,12 +3,14 @@
 Module place.py - contains the place class
 """
 
-from models.base_model  import BaseModel
+from models.base_model import BaseModel
+
 
 class Place(BaseModel):
     """
     place class
     """
+
     city_id = ""
     user_id = ""
     name = ""

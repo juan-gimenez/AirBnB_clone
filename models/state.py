@@ -3,7 +3,8 @@
 Module state.py - contains the state class
 """
 
-from models.base_model  import BaseModel
+from models.base_model import BaseModel
+
 
 class State(BaseModel):
     """
