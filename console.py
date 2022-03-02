@@ -62,7 +62,6 @@ class HBNBCommand(cmd.Cmd):
         if arg == "":
             print("** class name missing **")
         else:
-            print(f'jsLoaded es: \n{jsLoaded}')
             for obj in jsLoaded:
                 #making a list with the class name of the object and their id
                 objAndIdList = obj.split('.')
@@ -75,6 +74,7 @@ class HBNBCommand(cmd.Cmd):
                         if args[1] == objAndIdList[1]:
                             flag = 1
                             print(jsLoaded[obj])
+                            return
             if flag == 0:
                 print("** no instance found **")
 
@@ -110,8 +110,7 @@ class HBNBCommand(cmd.Cmd):
         Prints string representation of all instances
         """
         jsLoaded = storage.all()
-        flag = 0
-        i = 0
+        toPrint = []
         for obj in jsLoaded:
             #making a list with class name of the object and their id
             objAndIdList = obj.split('.')
@@ -119,22 +118,10 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
                 return
             elif arg != "" and arg == objAndIdList[0]:
-                if flag == 0:
-                    print("[\"", end='')
-                    flag = 1
-                print(jsLoaded[obj],end='')
-                if flag == 1 and i < len(jsLoaded) - 1:
-                    print(", ", end='')
-                i += 1
+                toPrint.append(str(jsLoaded[obj]))
             if arg == "":
-                if flag == 0:
-                    print("[\"", end='')
-                    flag = 1
-                print(jsLoaded[obj],end='')
-                if flag == 1 and i < len(jsLoaded) - 1:
-                    print(", ", end='')
-                i += 1
-        print("\"]")
+                toPrint.append(str(jsLoaded[obj]))
+        print(toPrint)
 
     def do_update(self, arg):
         """
@@ -164,6 +151,7 @@ class HBNBCommand(cmd.Cmd):
                                 flag = 1
                                 setattr(jsLoaded[obj], args[2], args[3].strip('"'))
                                 storage.save()
+                                return
         if flag == 0:
             print("** no instance found **")
 

@@ -23,7 +23,7 @@ class FileStorage():
 
     def all(self):
         """
-        returns an empty dictionary __object
+        returns a dictionary __object
         """
 
 
