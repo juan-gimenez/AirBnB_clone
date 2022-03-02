@@ -21,10 +21,14 @@ class HBNBCommand(cmd.Cmd):
     """
 
     prompt = '(hbnb) '
-    classList = ["BaseModel", "City", "State", "Place", "Review", "User", "Amenity"]
+    classList = ["BaseModel", "City", "State", "Place",
+                 "Review", "User", "Amenity"]
 
     def emptyline(self):
-        """overwritted method to avoid a message if the command line is empty"""
+        """
+        overwritted method to avoid a message if the
+        command line is empty
+        """
         pass
 
     def do_quit(self, arg):
@@ -45,12 +49,14 @@ class HBNBCommand(cmd.Cmd):
         """
         if arg == "":
             print("** class name missing **")
+            return
         elif arg in self.classList:
             new = eval(arg)()
             new.save()
             print(new.id)
         else:
             print("** class doesn't exist **")
+            return
 
     def do_show(self, arg):
         """
@@ -61,15 +67,18 @@ class HBNBCommand(cmd.Cmd):
         flag = 0
         if arg == "":
             print("** class name missing **")
+            return
         else:
             for obj in jsLoaded:
-                #making a list with the class name of the object and their id
+                # making a list with the class name of the object and their id
                 objAndIdList = obj.split('.')
                 if args[0] not in self.classList:
                     print("** class doesn't exist **")
+                    return
                 else:
                     if len(args) == 1:
                         print("** instance id missing **")
+                        return
                     else:
                         if args[1] == objAndIdList[1]:
                             flag = 1
@@ -77,6 +86,7 @@ class HBNBCommand(cmd.Cmd):
                             return
             if flag == 0:
                 print("** no instance found **")
+                return
 
     def do_destroy(self, arg):
         """
@@ -87,15 +97,18 @@ class HBNBCommand(cmd.Cmd):
         flag = 0
         if arg == "":
             print("** class name missing **")
+            return
         else:
             for obj in jsLoaded.keys():
-                #making a list with the class name of the object and their id
+                # making a list with the class name of the object and their id
                 objAndIdList = obj.split('.')
                 if args[0] not in self.classList:
                     print("** class doesn't exist **")
+                    return
                 else:
                     if len(args) == 1:
                         print("** instance id missing **")
+                        return
                     else:
                         if objAndIdList[1] == args[1]:
                             flag = 1
@@ -104,6 +117,7 @@ class HBNBCommand(cmd.Cmd):
                             return
             if flag == 0:
                 print("** no instance found **")
+                return
 
     def do_all(self, arg):
         """
@@ -112,7 +126,7 @@ class HBNBCommand(cmd.Cmd):
         jsLoaded = storage.all()
         toPrint = []
         for obj in jsLoaded:
-            #making a list with class name of the object and their id
+            # making a list with class name of the object and their id
             objAndIdList = obj.split('.')
             if arg != "" and arg not in self.classList:
                 print("** class doesn't exist **")
@@ -132,28 +146,36 @@ class HBNBCommand(cmd.Cmd):
         flag = 0
         if arg == "":
             print("** class name missing **")
+            return
         for obj in jsLoaded:
-            #making a list with the class name of the object and their id
+            # making a list with the class name of the object and their id
             objAndIdList = obj.split('.')
             if args[0] not in self.classList:
                 print("** class doesn't exist **")
+                return
             else:
                 if len(args) == 1:
                     print("** instance id missing **")
+                    return
                 else:
                     if len(args) == 2:
                         print("** attribute name missing **")
+                        return
                     else:
                         if len(args) == 3:
                             print("** value missing **")
+                            return
                         else:
                             if objAndIdList[1] == args[1]:
                                 flag = 1
-                                setattr(jsLoaded[obj], args[2], args[3].strip('"'))
+                                setattr(jsLoaded[obj], args[2],
+                                        args[3].strip('"'))
                                 storage.save()
                                 return
         if flag == 0:
             print("** no instance found **")
+            return
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
