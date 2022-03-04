@@ -3,10 +3,9 @@
 Module base_model.py - contains the base model class
 """
 
-
-from uuid import uuid4
 from datetime import datetime
 import models
+from uuid import uuid4
 
 
 class BaseModel():

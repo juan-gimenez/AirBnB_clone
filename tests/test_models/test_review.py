@@ -6,6 +6,7 @@ import sys
 import io
 from models.review import Review
 
+
 class Testclassreview(unittest.TestCase):
     """
     Review class tests
@@ -16,5 +17,13 @@ class Testclassreview(unittest.TestCase):
         print(a)
         self.assertEqual(type(c), type(Review()))
 
-if __name__ == "__main__":
-    unittest.main()
+    def test_publicclassattr(self):
+        """
+        test public class attributes
+        """
+        c = Review()
+        self.assertTrue(hasattr(c, 'user_id'))
+        self.assertTrue(hasattr(c, 'text'))
+
+        if __name__ == "__main__":
+            unittest.main()

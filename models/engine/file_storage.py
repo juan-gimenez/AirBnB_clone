@@ -3,15 +3,17 @@
 file_storge module
 serializes instances to a JSON file and deserializes JSON file to instance
 """
-import json as js
-from uuid import uuid4
-from models.base_model import BaseModel
-from models.user import User
-from models.state import State
-from models.city import City
+# ordenado
 from models.amenity import Amenity
+from models.base_model import BaseModel
+from models.city import City
+import json as js
 from models.place import Place
 from models.review import Review
+from models.state import State
+from models.user import User
+from uuid import uuid4
+
 
 class FileStorage():
     """
@@ -20,13 +22,10 @@ class FileStorage():
     __file_path = "file.json"
     __objects = {}
 
-
     def all(self):
         """
         returns a dictionary __object
         """
-
-
         return self.__objects
 
     def new(self, obj):
@@ -41,7 +40,7 @@ class FileStorage():
         """
         auxDict = {}
         try:
-            with open (self.__file_path, 'w+') as f:
+            with open(self.__file_path, 'w+') as f:
                 for key, value in self.__objects.items():
                     auxDict[key] = value.to_dict()
                 js.dump(auxDict, f)
@@ -55,7 +54,7 @@ class FileStorage():
         try:
             with open(self.__file_path) as f:
                 auxDict = js.load(f)
-                for key , value in auxDict.items():
+                for key, value in auxDict.items():
                     objAndIdList = str(key).split('.')
                     self.__objects[key] = eval(objAndIdList[0])(**value)
         except Exception:

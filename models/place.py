@@ -11,7 +11,7 @@ class Place(BaseModel):
     place class
     """
 
-    def __init__(self, *args):
+    def __init__(self, *args, **kwargs):
         self.city_id = ""
         self.user_id = ""
         self.description = ""
@@ -21,4 +21,4 @@ class Place(BaseModel):
         self.latitude = 0.0
         self.longitude = 0.0
         self.amenity_ids = []
-        super.__init__(*args)
+        super.__init__(*args, **kwargs)
