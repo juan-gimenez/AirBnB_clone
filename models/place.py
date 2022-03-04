@@ -11,14 +11,14 @@ class Place(BaseModel):
     place class
     """
 
-    city_id = ""
-    user_id = ""
-    name = ""
-    description = ""
-    number_rooms = int(0)
-    number_bathrooms = int(0)
-    max_guest = int(0)
-    price_by_night = int(0)
-    latitude = float(0.0)
-    longitude = float(0.0)
-    amenity_ids = []
+    def __init__(self, *args):
+        self.city_id = ""
+        self.user_id = ""
+        self.description = ""
+        self.unmber_bathrooms = 0
+        self.max_guest = 0
+        self.price_by_night = 0
+        self.latitude = 0.0
+        self.longitude = 0.0
+        self.amenity_ids = []
+        super.__init__(*args)
