@@ -143,14 +143,11 @@ class HBNBCommand(cmd.Cmd):
         """
         Updates an specific instance by adding or updating attribute
         """
-        print("entre al update")
         jsLoaded = storage.all()
         flag = 0
         if '{' not in arg:
-            print("entre al if")
             args = arg.split()
             if arg == "":
-                print("** class name missing **")
                 return
             for obj in jsLoaded:
                 # making a list with the class name of the object and their id
@@ -173,7 +170,7 @@ class HBNBCommand(cmd.Cmd):
                             else:
                                 if objAndIdList[1] == args[1]:
                                     flag = 1
-                                    check = args[3].replace(".","", 1)
+                                    check = args[3].replace(".", "", 1)
                                     args[3] = args[3].strip('"')
                                     if check.isdigit():
                                         if '.' in args[3]:
@@ -188,25 +185,20 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
                 return
         else:
-            print("entre al else")
             y = arg.split('{')
             z = "{" + y[1]
             kwargs = eval(z)
             y = y[0].split(' ')
             for Objs in jsLoaded:
                 IdObj = Objs.split('.')
-                print(f'idobj = {IdObj}')
-                print(f'if *{y}* == *{IdObj[1]}*:')
                 if y[1] == IdObj[1]:
-                    print(f'encontre objeto. voy a setear este {type(kwargs)} = {kwargs}')
                     for key in kwargs:
                         setattr(jsLoaded[Objs], key, kwargs[key])
                     storage.save()
 
-
     def do_count(self, arg):
         """
-        Prints str of an instance Ex: $ show BaseModel 1234-1234-1234
+        count the cuantity of objects of a specific class
         """
         args = arg.split()
         jsLoaded = storage.all()
@@ -234,16 +226,16 @@ class HBNBCommand(cmd.Cmd):
         """
         Rarg = arg.strip(')')
         Rarg = Rarg.strip('(')
-        Rarg = Rarg.replace("\"",".")
+        Rarg = Rarg.replace("\"", ".")
         args = Rarg.split('.')
         try:
 
-               # User.all()
-               # User.count()
+            # User.all()
+            # User.count()
             try:
                 eval(f'self.do_{args[1]}')(args[0])
             except Exception:
-                try:       
+                try:
                     args[1] = args[1].strip('(')
                     if len(args) == 4:
                         print(f'len: {len(args)}')
@@ -261,31 +253,23 @@ class HBNBCommand(cmd.Cmd):
                         Larg[2] = Larg[2].strip('"')
                         Larg[3] = Larg[3].strip(' ')
                         Larg[3] = Larg[3].strip(')')
-                        eval(f'self.do_{Larg[0]}')(f'{Rarg[0]} {Larg[1]} {Larg[2]} {Larg[3]}')
+                        pep8Plz = f'{Rarg[0]} {Larg[1]} {Larg[2]} {Larg[3]}'
+                        eval(f'self.do_{Larg[0]}')(pep8Plz)
                 except Exception:
                     y = arg.split('{')
                     z = y[1].strip(' ')
-                    print(z)
                     z = z.strip(')')
-                    print(z)
                     z = "{" + z
-                    print(z)
-                    print(z)
-                    print(type(z))
-                    zLeft = y[0].replace("(",".")
+                    zLeft = y[0].replace("(", ".")
                     zLeft = zLeft.strip(' ')
                     zLeft = zLeft.strip(',')
                     zLeft = zLeft.split('.')
                     zLeft[2] = zLeft[2].strip('"')
-                    my_dict = {'name': 'Jack', 'age': 26}
-                    print("*********************************************")
-                    print(f'self.do_{zLeft[1]}({zLeft[0]} {zLeft[2]}, {z})')
-                    print(f'antes de entrar al eval el diccionario es: {z}')
-                    print("***********************************************")
                     eval(f'self.do_{zLeft[1]}')(f'{zLeft[0]} {zLeft[2]} {z}')
         except Exception as a:
             print(f'*** Unknown syntax: {arg}')
             print(a)
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
