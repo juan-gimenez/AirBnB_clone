@@ -143,40 +143,65 @@ class HBNBCommand(cmd.Cmd):
         """
         Updates an specific instance by adding or updating attribute
         """
+        print("entre al update")
         jsLoaded = storage.all()
-        args = arg.split()
         flag = 0
-        if arg == "":
-            print("** class name missing **")
-            return
-        for obj in jsLoaded:
-            # making a list with the class name of the object and their id
-            objAndIdList = obj.split('.')
-            if args[0] not in self.classList:
-                print("** class doesn't exist **")
+        if '{' not in arg:
+            print("entre al if")
+            args = arg.split()
+            if arg == "":
+                print("** class name missing **")
                 return
-            else:
-                if len(args) == 1:
-                    print("** instance id missing **")
+            for obj in jsLoaded:
+                # making a list with the class name of the object and their id
+                objAndIdList = obj.split('.')
+                if args[0] not in self.classList:
+                    print("** class doesn't exist **")
                     return
                 else:
-                    if len(args) == 2:
-                        print("** attribute name missing **")
+                    if len(args) == 1:
+                        print("** instance id missing **")
                         return
                     else:
-                        if len(args) == 3:
-                            print("** value missing **")
+                        if len(args) == 2:
+                            print("** attribute name missing **")
                             return
                         else:
-                            if objAndIdList[1] == args[1]:
-                                flag = 1
-                                setattr(jsLoaded[obj], args[2],
-                                        args[3].strip('"'))
-                                storage.save()
+                            if len(args) == 3:
+                                print("** value missing **")
                                 return
-        if flag == 0:
-            print("** no instance found **")
-            return
+                            else:
+                                if objAndIdList[1] == args[1]:
+                                    flag = 1
+                                    check = args[3].replace(".","", 1)
+                                    args[3] = args[3].strip('"')
+                                    if check.isdigit():
+                                        if '.' in args[3]:
+                                            args[3] = float(args[3])
+                                        else:
+                                            args[3] = int(args[3])
+                                    setattr(jsLoaded[obj], args[2],
+                                            args[3])
+                                    storage.save()
+                                    return
+            if flag == 0:
+                print("** no instance found **")
+                return
+        else:
+            print("entre al else")
+            y = arg.split('{')
+            z = "{" + y[1]
+            kwargs = eval(z)
+            y = y[0].split(' ')
+            for Objs in jsLoaded:
+                IdObj = Objs.split('.')
+                print(f'idobj = {IdObj}')
+                print(f'if *{y}* == *{IdObj[1]}*:')
+                if y[1] == IdObj[1]:
+                    print(f'encontre objeto. voy a setear este {type(kwargs)} = {kwargs}')
+                    for key in kwargs:
+                        setattr(jsLoaded[Objs], key, kwargs[key])
+                    storage.save()
 
 
     def do_count(self, arg):
@@ -212,31 +237,55 @@ class HBNBCommand(cmd.Cmd):
         Rarg = Rarg.replace("\"",".")
         args = Rarg.split('.')
         try:
-            # User.all()
-            # User.count()
+
+               # User.all()
+               # User.count()
             try:
                 eval(f'self.do_{args[1]}')(args[0])
             except Exception:
-                args[1] = args[1].strip('(')
-                if len(args) == 4:
-                    print(f'len: {len(args)}')
-                    eval(f'self.do_{args[1]}')(f'{args[0]} {args[2]}')
-                else:
-                    Rarg = arg.split('.')
-                    if len(Rarg) != 2:
-                        return
-                    Rarg[1] = Rarg[1].replace("(", ",")
-                    Larg = Rarg[1].split(',')
-                    Larg[0] = Larg[0].strip('"')
-                    Larg[1] = Larg[1].strip(' ')
-                    Larg[1] = Larg[1].strip('"')
-                    Larg[2] = Larg[2].strip(' ')
-                    Larg[2] = Larg[2].strip('"')
-                    Larg[3] = Larg[3].strip(' ')
-                    Larg[3] = Larg[3].strip(')')
-                    eval(f'self.do_{Larg[0]}')(f'{Rarg[0]} {Larg[1]} {Larg[2]} {Larg[3]}')
+                try:       
+                    args[1] = args[1].strip('(')
+                    if len(args) == 4:
+                        print(f'len: {len(args)}')
+                        eval(f'self.do_{args[1]}')(f'{args[0]} {args[2]}')
+                    else:
+                        Rarg = arg.split('.')
+                        if len(Rarg) != 2:
+                            return
+                        Rarg[1] = Rarg[1].replace("(", ",")
+                        Larg = Rarg[1].split(',')
+                        Larg[0] = Larg[0].strip('"')
+                        Larg[1] = Larg[1].strip(' ')
+                        Larg[1] = Larg[1].strip('"')
+                        Larg[2] = Larg[2].strip(' ')
+                        Larg[2] = Larg[2].strip('"')
+                        Larg[3] = Larg[3].strip(' ')
+                        Larg[3] = Larg[3].strip(')')
+                        eval(f'self.do_{Larg[0]}')(f'{Rarg[0]} {Larg[1]} {Larg[2]} {Larg[3]}')
+                except Exception:
+                    y = arg.split('{')
+                    z = y[1].strip(' ')
+                    print(z)
+                    z = z.strip(')')
+                    print(z)
+                    z = "{" + z
+                    print(z)
+                    print(z)
+                    print(type(z))
+                    zLeft = y[0].replace("(",".")
+                    zLeft = zLeft.strip(' ')
+                    zLeft = zLeft.strip(',')
+                    zLeft = zLeft.split('.')
+                    zLeft[2] = zLeft[2].strip('"')
+                    my_dict = {'name': 'Jack', 'age': 26}
+                    print("*********************************************")
+                    print(f'self.do_{zLeft[1]}({zLeft[0]} {zLeft[2]}, {z})')
+                    print(f'antes de entrar al eval el diccionario es: {z}')
+                    print("***********************************************")
+                    eval(f'self.do_{zLeft[1]}')(f'{zLeft[0]} {zLeft[2]} {z}')
         except Exception as a:
             print(f'*** Unknown syntax: {arg}')
+            print(a)
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
