@@ -9,6 +9,7 @@ from models.base_model import BaseModel
 from models.user import User
 from models.state import State
 from models.city import City
+from datetime import datetime
 from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
@@ -141,25 +142,19 @@ class HBNBCommand(cmd.Cmd):
             args = arg.split()
             if arg == "":
                 return
-            # making a list with the class name of the object and their id
             if args[0] not in self.classList:
                 print("** class doesn't exist **")
-                return
             else:
                 if len(args) == 1:
                     print("** instance id missing **")
-                    return
                 else:
                     if len(args) == 2:
                         print("** attribute name missing **")
-                        return
                     else:
                         if len(args) == 3:
                             print("** value missing **")
-                            return
                         else:
                             try:
-                                flag = 1
                                 check = args[3].replace(".", "", 1)
                                 args[3] = args[3].strip('"')
                                 if check.isdigit():
@@ -167,25 +162,34 @@ class HBNBCommand(cmd.Cmd):
                                         args[3] = float(args[3])
                                     else:
                                         args[3] = int(args[3])
-                                setattr(jsLoaded[f'{args[0]}.{args[1]}'],
-                                        args[2], args[3])
+                                if args[2] == "id":
+                                    return
+                                if args[2] == "created_at":
+                                    return
+                                if args[2] == "updated_at":
+                                    return
+                                key = f'{args[0]}.{args[1]}'
+                                setattr(jsLoaded[key], args[2], args[3])
+                                time = datetime.now()
+                                setattr(jsLoaded[key], "updated_at", time)
                                 storage.save()
-                                return
                             except Exception:
                                 print("** no instance found **")
-                                return
+
         else:
             y = arg.split('{')
             z = "{" + y[1]
             kwargs = eval(z)
             args = y[0].split(' ')
             try:
+                classId = f'{args[0]}.{args[1]}'
                 for key in kwargs:
-                    setattr(jsLoaded[f'{args[0]}.{args[1]}'], key, kwargs[key])
+                    setattr(jsLoaded[classId], key, kwargs[key])
+                setattr(jsLoaded[classId], "updated_at", datetime.now())
                 storage.save()
             except Exception:
                 print("** no instance found **")
-                return
+            print(args)
 
     def do_count(self, arg):
         """
