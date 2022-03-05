@@ -66,29 +66,26 @@ class HBNBCommand(cmd.Cmd):
         """
         args = arg.split()
         jsLoaded = storage.all()
-        flag = 0
         if arg == "":
             print("** class name missing **")
             return
         else:
-            for obj in jsLoaded:
-                # making a list with the class name of the object and their id
-                objAndIdList = obj.split('.')
-                if args[0] not in self.classList:
-                    print("** class doesn't exist **")
+            # making a list with the class name of the object and their id
+            if args[0] not in self.classList:
+                print("** class doesn't exist **")
+                return
+            else:
+                if len(args) == 1:
+                    print("** instance id missing **")
                     return
                 else:
-                    if len(args) == 1:
-                        print("** instance id missing **")
+                    try:
+                        print(jsLoaded[f'{args[0]}.{args[1]}'])
                         return
-                    else:
-                        if args[1] == objAndIdList[1]:
-                            flag = 1
-                            print(jsLoaded[obj])
-                            return
-            if flag == 0:
-                print("** no instance found **")
-                return
+                    except Exception as a:
+                        print(a)
+                        print("** no instance found **")
+                        return
 
     def do_destroy(self, arg):
         """
@@ -96,30 +93,26 @@ class HBNBCommand(cmd.Cmd):
         """
         args = arg.split()
         jsLoaded = storage.all()
-        flag = 0
         if arg == "":
             print("** class name missing **")
             return
         else:
-            for obj in jsLoaded.keys():
-                # making a list with the class name of the object and their id
-                objAndIdList = obj.split('.')
-                if args[0] not in self.classList:
-                    print("** class doesn't exist **")
+            # making a list with the class name of the object and their id
+            if args[0] not in self.classList:
+                print("** class doesn't exist **")
+                return
+            else:
+                if len(args) == 1:
+                    print("** instance id missing **")
                     return
                 else:
-                    if len(args) == 1:
-                        print("** instance id missing **")
+                    try:
+                        jsLoaded.pop(f'{args[0]}.{args[1]}')
+                        storage.save()
                         return
-                    else:
-                        if objAndIdList[1] == args[1]:
-                            flag = 1
-                            jsLoaded.pop(obj)
-                            storage.save()
-                            return
-            if flag == 0:
-                print("** no instance found **")
-                return
+                    except Exception:
+                        print("** no instance found **")
+                        return
 
     def do_all(self, arg):
         """
@@ -149,52 +142,51 @@ class HBNBCommand(cmd.Cmd):
             args = arg.split()
             if arg == "":
                 return
-            for obj in jsLoaded:
-                # making a list with the class name of the object and their id
-                objAndIdList = obj.split('.')
-                if args[0] not in self.classList:
-                    print("** class doesn't exist **")
+            # making a list with the class name of the object and their id
+            if args[0] not in self.classList:
+                print("** class doesn't exist **")
+                return
+            else:
+                if len(args) == 1:
+                    print("** instance id missing **")
                     return
                 else:
-                    if len(args) == 1:
-                        print("** instance id missing **")
+                    if len(args) == 2:
+                        print("** attribute name missing **")
                         return
                     else:
-                        if len(args) == 2:
-                            print("** attribute name missing **")
+                        if len(args) == 3:
+                            print("** value missing **")
                             return
                         else:
-                            if len(args) == 3:
-                                print("** value missing **")
+                            try:
+                                flag = 1
+                                check = args[3].replace(".", "", 1)
+                                args[3] = args[3].strip('"')
+                                if check.isdigit():
+                                    if '.' in args[3]:
+                                        args[3] = float(args[3])
+                                    else:
+                                        args[3] = int(args[3])
+                                setattr(jsLoaded[f'{args[0]}.{args[1]}'],
+                                        args[2], args[3])
+                                storage.save()
                                 return
-                            else:
-                                if objAndIdList[1] == args[1]:
-                                    flag = 1
-                                    check = args[3].replace(".", "", 1)
-                                    args[3] = args[3].strip('"')
-                                    if check.isdigit():
-                                        if '.' in args[3]:
-                                            args[3] = float(args[3])
-                                        else:
-                                            args[3] = int(args[3])
-                                    setattr(jsLoaded[obj], args[2],
-                                            args[3])
-                                    storage.save()
-                                    return
-            if flag == 0:
-                print("** no instance found **")
-                return
+                            except Exception:
+                                print("** no instance found **")
+                                return
         else:
             y = arg.split('{')
             z = "{" + y[1]
             kwargs = eval(z)
-            y = y[0].split(' ')
-            for Objs in jsLoaded:
-                IdObj = Objs.split('.')
-                if y[1] == IdObj[1]:
-                    for key in kwargs:
-                        setattr(jsLoaded[Objs], key, kwargs[key])
-                    storage.save()
+            args = y[0].split(' ')
+            try:
+                for key in kwargs:
+                    setattr(jsLoaded[f'{args[0]}.{args[1]}'], key, kwargs[key])
+                storage.save()
+            except Exception:
+                print("** no instance found **")
+                return
 
     def do_count(self, arg):
         """
