@@ -43,6 +43,15 @@ class Testclassbase(unittest.TestCase):
         b = type(d)
         self.assertEqual(a, b)
 
+    def test_doc(self):
+        """
+        test documentation
+        """    
+        self.assertTrue(BaseModel.__str__.__doc__ != "")
+        self.assertTrue(BaseModel.__init__.__str__.__doc__ != "")
+        self.assertTrue(BaseModel.__str__.__str__.__doc__ != "")
+        self.assertTrue(BaseModel.save.__str__.__doc__ != "")
+        self.assertTrue(BaseModel.to_dict.__str__.__doc__ != "")
 
 if __name__ == "__main__":
     unittest.main()

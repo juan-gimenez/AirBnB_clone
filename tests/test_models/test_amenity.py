@@ -24,5 +24,11 @@ class Testclassamenity(unittest.TestCase):
         c = Amenity()
         self.assertTrue(hasattr(c, 'name'))
 
+    def test_doc(self):
+        """
+        test documentation
+        """
+        self.assertTrue(Amenity.__str__.__doc__ != "")
+
 if __name__ == "__main__":
     unittest.main()

@@ -25,17 +25,23 @@ def test_test(self):
         test if attributes
         """
         c = Place()
-        self.asserTrue(hasattr(c, city_id))
-        self.asserTrue(hasattr(c, user_id))
-        self.asserTrue(hasattr(c, name))
-        self.asserTrue(hasattr(c, description))
-        self.asserTrue(hasattr(c, number_rooms))
-        self.asserTrue(hasattr(c, number_bathrooms))
-        self.asserTrue(hasattr(c, max_guest))
-        self.asserTrue(hasattr(c, price_by_night))
-        self.asserTrue(hasattr(c, latitude))
-        self.asserTrue(hasattr(c, longitude))
-        self.asserTrue(hasattr(c, amenity_ids))
+        self.assertTrue(hasattr(c, 'city_id'))
+        self.assertTrue(hasattr(c, 'user_id'))
+        self.assertTrue(hasattr(c, 'name'))
+        self.assertTrue(hasattr(c, 'description'))
+        self.assertTrue(hasattr(c, 'number_rooms'))
+        self.assertTrue(hasattr(c, 'number_bathrooms'))
+        self.assertTrue(hasattr(c, 'max_guest'))
+        self.assertTrue(hasattr(c, 'price_by_night'))
+        self.assertTrue(hasattr(c, 'latitude'))
+        self.assertTrue(hasattr(c, 'longitude'))
+        self.assertTrue(hasattr(c, 'amenity_ids'))
+
+def test_doc(self):
+        """
+        test documentation
+        """
+        self.assertTrue(Place.__str__.__doc__ != "")
 
         if __name__ == "__main__":
                 unittest.main()
