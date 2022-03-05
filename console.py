@@ -9,6 +9,7 @@ from models.base_model import BaseModel
 from models.user import User
 from models.state import State
 from models.city import City
+from datetime import datetime
 from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
@@ -167,8 +168,10 @@ class HBNBCommand(cmd.Cmd):
                                     return
                                 if args[2] == "updated_at":
                                     return
-                                setattr(jsLoaded[f'{args[0]}.{args[1]}'],
-                                        args[2], args[3])
+                                key = f'{args[0]}.{args[1]}'
+                                setattr(jsLoaded[key], args[2], args[3])
+                                time = datetime.now()
+                                setattr(jsLoaded[key], "updated_at", time)
                                 storage.save()
                             except Exception:
                                 print("** no instance found **")
@@ -179,8 +182,10 @@ class HBNBCommand(cmd.Cmd):
             kwargs = eval(z)
             args = y[0].split(' ')
             try:
+                classId = f'{args[0]}.{args[1]}'
                 for key in kwargs:
-                    setattr(jsLoaded[f'{args[0]}.{args[1]}'], key, kwargs[key])
+                    setattr(jsLoaded[classId], key, kwargs[key])
+                setattr(jsLoaded[classId], "updated_at", datetime.now())
                 storage.save()
             except Exception:
                 print("** no instance found **")
