@@ -38,7 +38,7 @@ Now you should be able to interact with the console and use the abvailable comma
 
 Commands available: 
 
-1 Create: creates a new instance of BaseModel, saves it and print id.
+Create: creates a new instance of BaseModel, saves it and print id.
 
 Example:
 
@@ -52,7 +52,6 @@ Example:
 ![show](https://user-images.githubusercontent.com/85518777/156899731-12b04cde-156e-47b1-a853-7285679f8cdf.png)
 (zoom in)
 
-
 Destroy: Deletes an instance based on the class name and id
 
 Example:
@@ -62,8 +61,8 @@ Example:
 Update: Updates an instance based on the class name and id by adding or updating attribute
 
 Example:
-![update](https://user-images.githubusercontent.com/85518777/156900053-7726fc86-36a2-48f4-91f6-06ec130ceaa4.png)
 
+![update](https://user-images.githubusercontent.com/85518777/156900053-7726fc86-36a2-48f4-91f6-06ec130ceaa4.png)
 
 All: Prints all string representation of all instances based or not on the class name
 
@@ -73,9 +72,9 @@ Example:
 (zoom in)
 
 ## Contributors:
-Joaquin Victoria : [linkedin](https://www.linkedin.com/in/joaquin-victoria-delgado-31a53a222/) @Joaquinzz2000zz 
+Joaquin Victoria : [linkedin](https://www.linkedin.com/in/joaquin-victoria-delgado-31a53a222/) @Joaquin2000zz (github)
 
-Juan Giménez : [linkedin](https://www.linkedin.com/in/juan-valentin-gimenez-denis-381b01214/) @juan-gimenez
+Juan Giménez : [linkedin](https://www.linkedin.com/in/juan-valentin-gimenez-denis-381b01214/) @juan-gimenez (github)
 
 ## License
 No license
