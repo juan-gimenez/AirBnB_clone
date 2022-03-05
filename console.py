@@ -82,8 +82,7 @@ class HBNBCommand(cmd.Cmd):
                     try:
                         print(jsLoaded[f'{args[0]}.{args[1]}'])
                         return
-                    except Exception as a:
-                        print(a)
+                    except Exception:
                         print("** no instance found **")
                         return
 
