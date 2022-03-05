@@ -34,6 +34,6 @@ class Testclassreview(unittest.TestCase):
         test if doc exist
         """
         self.assertTrue(Review.__str__.__doc__ != "")
-
-        if __name__ == "__main__":
-            unittest.main()
+        
+    if __name__ == "__main__":
+        unittest.main()
