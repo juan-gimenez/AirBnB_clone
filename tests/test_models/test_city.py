@@ -28,5 +28,11 @@ class Testclasscity(unittest.TestCase):
         self.assertTrue(hasattr(c, 'name'))
         self.assertTrue(hasattr(c, 'state_id'))
 
+    def test_doc(self):
+        """
+        test documentation
+        """
+        self.assertTrue(City.__str__.__doc__ != "")
+
 if __name__ == "__main__":
     unittest.main()

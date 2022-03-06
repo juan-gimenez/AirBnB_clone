@@ -12,6 +12,9 @@ class Testclassreview(unittest.TestCase):
     Review class tests
     """
     def test_classreviewtype(self):
+        """
+        check class type
+        """
         c = Review()
         a = type(c)
         print(a)
@@ -22,8 +25,15 @@ class Testclassreview(unittest.TestCase):
         test public class attributes
         """
         c = Review()
+        self.assertTrue(hasattr(c, 'place_id'))
         self.assertTrue(hasattr(c, 'user_id'))
         self.assertTrue(hasattr(c, 'text'))
 
-        if __name__ == "__main__":
-            unittest.main()
+    def test_doc(self):
+        """
+        test if doc exist
+        """
+        self.assertTrue(Review.__str__.__doc__ != "")
+        
+    if __name__ == "__main__":
+        unittest.main()
