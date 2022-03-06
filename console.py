@@ -189,7 +189,6 @@ class HBNBCommand(cmd.Cmd):
                 storage.save()
             except Exception:
                 print("** no instance found **")
-            print(args)
 
     def do_count(self, arg):
         """
