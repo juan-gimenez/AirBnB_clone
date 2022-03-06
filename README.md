@@ -30,9 +30,7 @@ run the command:
 ```
 Now you should be able to interact with the console and use the abvailable commands which will be explained below.
 
-```bash
 
-```
 
 ## Usage
 
