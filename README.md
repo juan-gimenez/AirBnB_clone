@@ -68,7 +68,6 @@ Examples:
 ![update](https://user-images.githubusercontent.com/85518777/156900053-7726fc86-36a2-48f4-91f6-06ec130ceaa4.png)
 ![User update()](https://user-images.githubusercontent.com/91090043/156929193-0a6bbd25-983b-447d-b63a-70ede4e074dd.png)
 ![User update(dict)](https://user-images.githubusercontent.com/91090043/156929256-51b336ce-3f3a-4336-9a60-afa875d8f5f5.png)
-(zoom in)
 
 
 All: Prints all string representation of all instances based or not on the class name
