@@ -47,29 +47,45 @@ Example:
 
 Show: prints the string representation of an instance based on the class name and id.
 
-Example:
+Examples:
 
 ![show](https://user-images.githubusercontent.com/85518777/156899731-12b04cde-156e-47b1-a853-7285679f8cdf.png)
+(zoom in)
+![User show()](https://user-images.githubusercontent.com/91090043/156929922-1c2a2106-0666-407f-830e-277210425cca.png)
 (zoom in)
 
 Destroy: Deletes an instance based on the class name and id
 
-Example:
+Examples:
 
 ![destroy](https://user-images.githubusercontent.com/85518777/156899739-35e63413-c14d-4dfb-aa69-ab7a573ac495.png)
+![User destroy()](https://user-images.githubusercontent.com/91090043/156930046-225d866b-5ce7-4343-9b85-67352919f9e4.png)
 
 Update: Updates an instance based on the class name and id by adding or updating attribute
 
-Example:
+Examples:
 
 ![update](https://user-images.githubusercontent.com/85518777/156900053-7726fc86-36a2-48f4-91f6-06ec130ceaa4.png)
+![User update()](https://user-images.githubusercontent.com/91090043/156929193-0a6bbd25-983b-447d-b63a-70ede4e074dd.png)
+![User update(dict)](https://user-images.githubusercontent.com/91090043/156929256-51b336ce-3f3a-4336-9a60-afa875d8f5f5.png)
+(zoom in)
+
 
 All: Prints all string representation of all instances based or not on the class name
 
-Example:
+Examples:
 
 ![all](https://user-images.githubusercontent.com/85518777/156899750-1089e76e-d863-4cb7-982c-7efd1a73f85d.png)
 (zoom in)
+![User all()](https://user-images.githubusercontent.com/91090043/156928881-d4925e70-9ec5-4ffe-88e3-314dbeb9f92d.png)
+(zoom in)
+
+
+Count: Count the cuantity of instances of a specific class
+
+Example:
+
+![User count()](https://user-images.githubusercontent.com/91090043/156929804-fe31f0f5-9ab4-487f-a7c5-df3c99bdf06a.png)
 
 ## Contributors:
 Joaquin Victoria : [linkedin](https://www.linkedin.com/in/joaquin-victoria-delgado-31a53a222/) @Joaquin2000zz (github)
